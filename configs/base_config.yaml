@@ -1,0 +1,68 @@
+# Base Configuration for ABSA PyTorch Implementation
+
+# Model Settings
+model:
+  pretrained_model_name: "vinai/phobert-base"
+  max_length: 256
+  dropout_rate: 0.2
+  hidden_size: 768
+  num_last_layers: 4  # Concatenate last 4 layers of PhoBERT
+
+# Training Settings
+training:
+  batch_size: 16
+  learning_rate: 0.00002
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  num_epochs: 10
+  early_stopping_patience: 3
+  gradient_clip_norm: 1.0
+  num_workers: 4
+  
+# Data Settings
+data:
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  preprocessing:
+    correct_errors: true
+    normalize_tone: true
+    segment_words: true
+    remove_html: true
+    remove_emoji: true
+    
+# Optimization
+optimizer:
+  name: "AdamW"
+  eps: 1e-8
+  betas: [0.9, 0.999]
+  
+scheduler:
+  name: "LinearWarmup"
+  warmup_steps: 0.1  # Ratio of total steps
+  
+# Logging & Checkpointing
+logging:
+  wandb:
+    enabled: false
+    project: "pytorch-absa-vlsp2018"
+    entity: null
+  log_interval: 100
+  eval_interval: 500
+  save_interval: 1000
+  
+checkpoint:
+  save_best_only: true
+  monitor: "val_f1"
+  mode: "max"
+  
+# Hardware
+device:
+  cuda: true
+  mixed_precision: true
+  num_workers: 4
+  pin_memory: true
+
+# Reproducibility  
+seed: 42
+deterministic: true 

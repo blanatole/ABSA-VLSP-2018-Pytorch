@@ -1,0 +1,54 @@
+{
+  "timestamp": "20250714_232250",
+  "comparison_summary": {
+    "hotel_vs_restaurant": {
+      "acd_f1_difference": 0.08408732758729576,
+      "acd_spc_f1_difference": 0.029108964650789604,
+      "avg_aspect_f1_difference": 0.09255675491785287,
+      "better_domain_acd": "hotel",
+      "better_domain_acd_spc": "hotel"
+    },
+    "vs_original_paper": {
+      "hotel_improvements": {
+        "acd_f1": 0.164731249309914,
+        "acd_spc_f1": 0.07585918359964983
+      },
+      "restaurant_improvements": {
+        "acd_f1": 0.08064392172261825,
+        "acd_spc_f1": 0.04675021894886022
+      },
+      "average_improvements": {
+        "acd_f1": 0.12268758551626613,
+        "acd_spc_f1": 0.061304701274255025
+      }
+    }
+  },
+  "detailed_results": {
+    "hotel": {
+      "test_acd_f1": 0.990231249309914,
+      "test_acd_spc_f1": 0.8490591835996498,
+      "avg_aspect_f1": 0.8347632890693379,
+      "num_aspects": 34,
+      "num_params": 135416200,
+      "best_epoch": 1
+    },
+    "restaurant": {
+      "test_acd_f1": 0.9061439217226183,
+      "test_acd_spc_f1": 0.8199502189488602,
+      "avg_aspect_f1": 0.7422065341514851,
+      "num_aspects": 12,
+      "num_params": 135145776,
+      "best_epoch": 6
+    }
+  },
+  "original_paper_baseline": {
+    "hotel": {
+      "acd_f1": 0.8255,
+      "acd_spc_f1": 0.7732
+    },
+    "restaurant": {
+      "acd_f1": 0.8255,
+      "acd_spc_f1": 0.7732
+    }
+  }
+}

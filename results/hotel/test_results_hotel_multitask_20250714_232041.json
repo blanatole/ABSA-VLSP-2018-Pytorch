@@ -1,0 +1,182 @@
+{
+  "domain": "hotel",
+  "approach": "multitask",
+  "model_name": "hotel_multitask",
+  "timestamp": "20250714_232041",
+  "best_epoch": 1,
+  "test_metrics": {
+    "acd_f1": 0.990231249309914,
+    "acd_spc_f1": 0.8490591835996498,
+    "aspect_f1_scores": {
+      "FACILITIES#CLEANLINESS": 0.9875174337517435,
+      "FACILITIES#COMFORT": 0.9354798409994323,
+      "FACILITIES#DESIGN&FEATURES": 0.8406020558002937,
+      "FACILITIES#GENERAL": 0.9478117048346056,
+      "FACILITIES#MISCELLANEOUS": 0.9800447427293064,
+      "FACILITIES#PRICES": 0.967618646447627,
+      "FACILITIES#QUALITY": 0.8743864229765014,
+      "FOOD&DRINKS#MISCELLANEOUS": 0.9925062656641603,
+      "FOOD&DRINKS#PRICES": 0.9775566750629723,
+      "FOOD&DRINKS#QUALITY": 0.6904481792717087,
+      "FOOD&DRINKS#STYLE&OPTIONS": 0.7019083023543989,
+      "HOTEL#CLEANLINESS": 0.8358017063842307,
+      "HOTEL#COMFORT": 0.7716576250753466,
+      "HOTEL#DESIGN&FEATURES": 0.7928998505231689,
+      "HOTEL#GENERAL": 0.6406132824912615,
+      "HOTEL#MISCELLANEOUS": 0.8334040047114253,
+      "HOTEL#PRICES": 0.8262208444050781,
+      "HOTEL#QUALITY": 0.967618646447627,
+      "LOCATION#GENERAL": 0.4890738849165815,
+      "ROOMS#CLEANLINESS": 0.5333333333333333,
+      "ROOMS#COMFORT": 0.774010840108401,
+      "ROOMS#DESIGN&FEATURES": 0.5376047904191616,
+      "ROOMS#GENERAL": 0.8598687664041995,
+      "ROOMS#MISCELLANEOUS": 0.9900111482720177,
+      "ROOMS#PRICES": 0.9280984913179618,
+      "ROOMS#QUALITY": 0.9750700280112045,
+      "ROOM_AMENITIES#CLEANLINESS": 0.8865280184864242,
+      "ROOM_AMENITIES#COMFORT": 0.8334040047114253,
+      "ROOM_AMENITIES#DESIGN&FEATURES": 0.6563636363636364,
+      "ROOM_AMENITIES#GENERAL": 0.9207305936073059,
+      "ROOM_AMENITIES#MISCELLANEOUS": 0.9925062656641603,
+      "ROOM_AMENITIES#PRICES": 0.9975006950236309,
+      "ROOM_AMENITIES#QUALITY": 0.8550423605024833,
+      "SERVICE#GENERAL": 0.5887087412846758
+    },
+    "average_aspect_f1": 0.8347632890693379
+  },
+  "training_history": {
+    "train_losses": [
+      0.25406036774317425,
+      0.17912358207007248,
+      0.16337616331875324,
+      0.14647968628754218
+    ],
+    "val_losses": [
+      0.1589914821088314,
+      0.1497489780187607,
+      0.13315150188282132,
+      0.12173347743228077
+    ]
+  },
+  "config": {
+    "model": {
+      "pretrained_model_name": "vinai/phobert-base",
+      "max_length": 256,
+      "dropout_rate": 0.2,
+      "hidden_size": 768,
+      "num_last_layers": 4,
+      "approach": "multitask",
+      "domain": "hotel",
+      "num_aspect_categories": 34
+    },
+    "training": {
+      "batch_size": 25,
+      "learning_rate": 2e-05,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.01,
+      "num_epochs": 10,
+      "early_stopping_patience": 3,
+      "gradient_clip_norm": 1.0,
+      "num_workers": 4
+    },
+    "data": {
+      "train_split": 0.8,
+      "val_split": 0.1,
+      "test_split": 0.1,
+      "preprocessing": {
+        "correct_errors": true,
+        "normalize_tone": true,
+        "segment_words": true,
+        "remove_html": true,
+        "remove_emoji": true
+      },
+      "data_dir": "data/datasets/vlsp2018_hotel",
+      "domain": "hotel",
+      "train_path": "data/datasets/vlsp2018_hotel/1-VLSP2018-SA-Hotel-train.txt",
+      "val_path": "data/datasets/vlsp2018_hotel/2-VLSP2018-SA-Hotel-dev.txt",
+      "test_path": "data/datasets/vlsp2018_hotel/3-VLSP2018-SA-Hotel-test.txt"
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "eps": "1e-8",
+      "betas": [
+        0.9,
+        0.999
+      ]
+    },
+    "scheduler": {
+      "name": "LinearWarmup",
+      "warmup_steps": 0.1
+    },
+    "logging": {
+      "wandb": {
+        "enabled": false,
+        "project": "pytorch-absa-vlsp2018",
+        "entity": null
+      },
+      "log_interval": 100,
+      "eval_interval": 500,
+      "save_interval": 1000
+    },
+    "checkpoint": {
+      "save_best_only": true,
+      "monitor": "val_f1",
+      "mode": "max"
+    },
+    "device": {
+      "cuda": true,
+      "mixed_precision": true,
+      "num_workers": 4,
+      "pin_memory": true
+    },
+    "seed": 42,
+    "deterministic": true,
+    "aspect_categories": [
+      "FACILITIES#CLEANLINESS",
+      "FACILITIES#COMFORT",
+      "FACILITIES#DESIGN&FEATURES",
+      "FACILITIES#GENERAL",
+      "FACILITIES#MISCELLANEOUS",
+      "FACILITIES#PRICES",
+      "FACILITIES#QUALITY",
+      "FOOD&DRINKS#MISCELLANEOUS",
+      "FOOD&DRINKS#PRICES",
+      "FOOD&DRINKS#QUALITY",
+      "FOOD&DRINKS#STYLE&OPTIONS",
+      "HOTEL#CLEANLINESS",
+      "HOTEL#COMFORT",
+      "HOTEL#DESIGN&FEATURES",
+      "HOTEL#GENERAL",
+      "HOTEL#MISCELLANEOUS",
+      "HOTEL#PRICES",
+      "HOTEL#QUALITY",
+      "LOCATION#GENERAL",
+      "ROOMS#CLEANLINESS",
+      "ROOMS#COMFORT",
+      "ROOMS#DESIGN&FEATURES",
+      "ROOMS#GENERAL",
+      "ROOMS#MISCELLANEOUS",
+      "ROOMS#PRICES",
+      "ROOMS#QUALITY",
+      "ROOM_AMENITIES#CLEANLINESS",
+      "ROOM_AMENITIES#COMFORT",
+      "ROOM_AMENITIES#DESIGN&FEATURES",
+      "ROOM_AMENITIES#GENERAL",
+      "ROOM_AMENITIES#MISCELLANEOUS",
+      "ROOM_AMENITIES#PRICES",
+      "ROOM_AMENITIES#QUALITY",
+      "SERVICE#GENERAL"
+    ],
+    "output": {
+      "model_name": "hotel_multitask",
+      "save_dir": "models/hotel_multitask",
+      "results_dir": "results/hotel_multitask"
+    }
+  },
+  "model_parameters": {
+    "total_parameters": 135416200,
+    "trainable_parameters": 135416200,
+    "non_trainable_parameters": 0
+  }
+}

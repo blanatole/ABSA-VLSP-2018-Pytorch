@@ -1,0 +1,150 @@
+{
+  "domain": "restaurant",
+  "approach": "multitask",
+  "model_name": "restaurant_multitask",
+  "timestamp": "20250714_231424",
+  "best_epoch": 6,
+  "test_metrics": {
+    "acd_f1": 0.9061439217226183,
+    "acd_spc_f1": 0.8199502189488602,
+    "aspect_f1_scores": {
+      "AMBIENCE#GENERAL": 0.692081077556728,
+      "DRINKS#PRICES": 0.7944967032967033,
+      "DRINKS#QUALITY": 0.8524154589371981,
+      "DRINKS#STYLE&OPTIONS": 0.9075353834276891,
+      "FOOD#PRICES": 0.6613282906271615,
+      "FOOD#QUALITY": 0.8002981115502855,
+      "FOOD#STYLE&OPTIONS": 0.6602206635372634,
+      "LOCATION#GENERAL": 0.7330922040782711,
+      "RESTAURANT#GENERAL": 0.6337503690229778,
+      "RESTAURANT#MISCELLANEOUS": 0.6294252873563219,
+      "RESTAURANT#PRICES": 0.7961019036427732,
+      "SERVICE#GENERAL": 0.7457329567844476
+    },
+    "average_aspect_f1": 0.7422065341514851
+  },
+  "training_history": {
+    "train_losses": [
+      0.2708365822198407,
+      0.21401144094115135,
+      0.1822540873799148,
+      0.15949695027314575,
+      0.14045883297620204,
+      0.12462021140444199,
+      0.10795653959573716,
+      0.0937127231951528,
+      0.08105544920935727,
+      0.07113457729902443
+    ],
+    "val_losses": [
+      0.20302249101492076,
+      0.1798700649004716,
+      0.17000303921791224,
+      0.15598001480102539,
+      0.15098485476695575,
+      0.15868721294861574,
+      0.14852769879194405,
+      0.15412053912878038,
+      0.1487038566515996,
+      0.16995494950276155
+    ]
+  },
+  "config": {
+    "model": {
+      "pretrained_model_name": "vinai/phobert-base",
+      "max_length": 256,
+      "dropout_rate": 0.2,
+      "hidden_size": 768,
+      "num_last_layers": 4,
+      "approach": "multitask",
+      "domain": "restaurant",
+      "num_aspect_categories": 12
+    },
+    "training": {
+      "batch_size": 20,
+      "learning_rate": 2e-05,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.01,
+      "num_epochs": 12,
+      "early_stopping_patience": 4,
+      "gradient_clip_norm": 1.0,
+      "num_workers": 4
+    },
+    "data": {
+      "train_split": 0.8,
+      "val_split": 0.1,
+      "test_split": 0.1,
+      "preprocessing": {
+        "correct_errors": true,
+        "normalize_tone": true,
+        "segment_words": true,
+        "remove_html": true,
+        "remove_emoji": true
+      },
+      "data_dir": "data/datasets/vlsp2018_restaurant",
+      "domain": "restaurant",
+      "train_path": "data/datasets/vlsp2018_restaurant/1-VLSP2018-SA-Restaurant-train.txt",
+      "val_path": "data/datasets/vlsp2018_restaurant/2-VLSP2018-SA-Restaurant-dev.txt",
+      "test_path": "data/datasets/vlsp2018_restaurant/3-VLSP2018-SA-Restaurant-test.txt"
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "eps": "1e-8",
+      "betas": [
+        0.9,
+        0.999
+      ]
+    },
+    "scheduler": {
+      "name": "LinearWarmup",
+      "warmup_steps": 0.1
+    },
+    "logging": {
+      "wandb": {
+        "enabled": false,
+        "project": "pytorch-absa-vlsp2018",
+        "entity": null
+      },
+      "log_interval": 100,
+      "eval_interval": 500,
+      "save_interval": 1000
+    },
+    "checkpoint": {
+      "save_best_only": true,
+      "monitor": "val_f1",
+      "mode": "max"
+    },
+    "device": {
+      "cuda": true,
+      "mixed_precision": true,
+      "num_workers": 4,
+      "pin_memory": true
+    },
+    "seed": 42,
+    "deterministic": true,
+    "aspect_categories": [
+      "AMBIENCE#GENERAL",
+      "DRINKS#PRICES",
+      "DRINKS#QUALITY",
+      "DRINKS#STYLE&OPTIONS",
+      "FOOD#PRICES",
+      "FOOD#QUALITY",
+      "FOOD#STYLE&OPTIONS",
+      "LOCATION#GENERAL",
+      "RESTAURANT#GENERAL",
+      "RESTAURANT#MISCELLANEOUS",
+      "RESTAURANT#PRICES",
+      "SERVICE#GENERAL"
+    ],
+    "output": {
+      "model_name": "restaurant_multitask",
+      "save_dir": "models/restaurant_multitask",
+      "results_dir": "results/restaurant_multitask"
+    }
+  },
+  "model_parameters": {
+    "total_parameters": 135145776,
+    "trainable_parameters": 135145776,
+    "non_trainable_parameters": 0
+  }
+}

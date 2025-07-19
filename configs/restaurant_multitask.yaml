@@ -1,0 +1,46 @@
+# Restaurant Domain - Multi-task Approach Configuration
+
+# Inherit from base config
+defaults:
+  - base_config
+
+# Override specific settings
+model:
+  approach: "multitask"  # multitask vs multibranch
+  domain: "restaurant"
+  num_aspect_categories: 12
+  
+# Restaurant-specific aspect categories (12 categories)
+aspect_categories:
+  - "AMBIENCE#GENERAL"
+  - "DRINKS#PRICES"
+  - "DRINKS#QUALITY"
+  - "DRINKS#STYLE&OPTIONS"
+  - "FOOD#PRICES"
+  - "FOOD#QUALITY"
+  - "FOOD#STYLE&OPTIONS"
+  - "LOCATION#GENERAL"
+  - "RESTAURANT#GENERAL"
+  - "RESTAURANT#MISCELLANEOUS"
+  - "RESTAURANT#PRICES"
+  - "SERVICE#GENERAL"
+
+# Data paths
+data:
+  data_dir: "data/datasets/vlsp2018_restaurant"
+  domain: "restaurant"
+  train_path: "data/datasets/vlsp2018_restaurant/1-VLSP2018-SA-Restaurant-train.txt"
+  val_path: "data/datasets/vlsp2018_restaurant/2-VLSP2018-SA-Restaurant-dev.txt"
+  test_path: "data/datasets/vlsp2018_restaurant/3-VLSP2018-SA-Restaurant-test.txt"
+
+# Override training settings for smaller dataset
+training:
+  batch_size: 20  # Slightly larger batch size due to fewer aspects
+  num_epochs: 12   # More epochs for smaller dataset
+  early_stopping_patience: 4
+
+# Output settings
+output:
+  model_name: "restaurant_multitask"
+  save_dir: "models/restaurant_multitask"
+  results_dir: "results/restaurant_multitask"
